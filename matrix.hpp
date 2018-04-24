@@ -4,10 +4,12 @@
 #include <algorithm>
 #include <sstream>
 #include <string>
-
+#include <cmath>
+#include <cstdlib>
 using std::string;
 using std::vector;
 using std::ostream;
+using std::cout;
 
 class MatVect{
 public:
@@ -67,7 +69,7 @@ public:
     }
 
     for (int i = 0; i < m2.nrows(); ++i){
-      for (int j = 0; j < m2.nrows(); ++j){
+      for (int j = 0; j < m2.ncols(); ++j){
         rows[i][j] = m2.get(i,j);
       }
     }
@@ -128,7 +130,7 @@ struct PGMinfo{
   Matrix matrix;
   int max_gray;
   string magic_str;
-
+  string comments;
 };
 
 
@@ -140,5 +142,35 @@ void print(Matrix& m, ostream& stream, char sep = '\t'){
     }
     stream << '\n';
   }
+}
 
+int abs(int i){ if (i > 0) return i; return -i;}
+
+Matrix diff_matrix(Matrix m){
+
+  //print(m, cout);
+  Matrix diffm(m.nrows(), m.ncols());
+
+  for(size_t i = 0; i < m.nrows(); ++i){
+    for (size_t j = 0; j < m.ncols(); ++j){
+      int diff = 0;
+     
+      
+      if (i != 0){
+        diff += abs(m[i][j] - m[i - 1][j]);
+      }
+      if (i != m.nrows() - 1){
+        diff += abs(m[i][j] - m[i + 1][j]);
+      }
+      if (j != 0){
+        diff += abs(m[i][j] - m[i][j - 1]);
+      }
+      if (j != m.ncols() - 1){
+        diff += abs(m[i][j] - m[i][j + 1]);
+      }
+     diffm[i][j] = diff;
+    }
+  }
+  //print(diffm, cout);
+  return diffm;
 }

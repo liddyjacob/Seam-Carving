@@ -48,12 +48,18 @@ int main(){
 
   {
   ifstream pgm;
-    pgm.open("bug.pgm");
+    pgm.open("tset.pgm");
 
   PGMinfo pinfo = pgm2matrix(pgm);
 
   std::cout << "----------- BUG MATRIX  ------------\n";
-  print(pinfo.matrix, std::cout);
+  print(pinfo.matrix, std::cout, ' ');
+
+
+  Matrix energy = diff_matrix(pinfo.matrix);
+  std::cout << "----------- ENERGY MATRIX  ------------\n";
+  print(energy, std::cout, ' ');
+
 
   pgm.close();
   }
