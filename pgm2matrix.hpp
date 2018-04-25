@@ -93,9 +93,12 @@ PGMinfo pgm2matrix(ifstream& file){
 
 
   pinfo.comments = comments;
-  vector<string> xy = split(dim_str, ' ');
-    size_t x = atoi(xy[0].c_str() );
-    size_t y = atoi(xy[1].c_str() );
+  pinfo.magic_str = mgc_str;
+  pinfo.dim_str = dim_str;
+  pinfo.max_gray = atoi(gray_str.c_str());
+  vector<string> ji = split(dim_str, ' ');
+    size_t x = atoi(ji[1].c_str() );
+    size_t y = atoi(ji[0].c_str() );
 
   pinfo.max_gray = atoi(gray_str.c_str() );
 
