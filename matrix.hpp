@@ -278,7 +278,8 @@ vector<int> reverse_engineer(Matrix& dynamic){
   for (int j = 0; j < dynamic.ncols(); ++j){
     if (mval > dynamic[0][j]){ min_col = j; mval = dynamic[0][j]; }
   }
-
+  //std::cout << "From reverse engineer: Min col: " << min_col << '\n';
+  //std::cout << "\tValue: " << dynamic[0][min_col] << '\n'; 
   path.push_back(min_col);
  
   while (path.size() != dynamic.nrows()){
